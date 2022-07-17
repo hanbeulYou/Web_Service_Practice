@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <title>도서 목록</title>
+</head>
+<body>
+    <form action="/" method="post">
+        <div>
+            <label for="title">도서명 : </label>
+            <input type="text" name="title" id="title" required>
+            <input type="submit" value="입력">
+        </div>
+    </form>
+    
+    <form action="/deletebook" method="post">
+        <ol>
+            {% for book in books %}
+                <li><input type="checkbox" class="delete-checkbox" name="id" value="{{ book.id }}" /> <span>{{ book.title }}   ({{ book.author }}) </span></li>
+            {% endfor %}
+        </ol>
+
+        <div>
+            <a href="/addbook">
+                <input type="button" value="도서 추가" />
+            </a>
+            &nbsp;
+    
+            <input type="submit" value="도서 삭제" /><br><br>
+        </div>
+
+        <div>
+            <input id="user_id_input" type="text" placeholder="사용자 ID"/>
+            <button type="button" onclick="borrow()">대출</button>
+        </div>
+        
+        <div>
+            <a href="/users">
+                <input type="button" value="사용자 관리" />
+            </a>    
+        </div>
+
+    </form>
+</body>
+<script>
+    async function borrow() {
+        var body = new URLSearchParams();
+        let user_id = document.getElementById('user_id_input').value;
+        body.append('user_id', user_id);
+        
+        Array.from(document.getElementsByClassName('delete-checkbox')).forEach(
+            function(element, index, array) {
+                if (element.checked) {
+                    body.append('ids', element.value);
+                }
+            }
+        );
+
+        const response = await fetch('/borrowbook', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: body
+        })
+        .then(response => console.log(response))
+        .catch(err => console.log(err));
+    }
+</script>
+</html>

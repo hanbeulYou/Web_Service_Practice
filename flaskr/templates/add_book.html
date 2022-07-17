@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <title>도서 목록 추가</title>
+</head>
+<body>
+    <form action="/addbook" method="post">
+        <div>
+          <label for="title">책 제목 : </label><br>
+          <input type="text" name="title" id="title" required>
+        </div>
+        <div>
+          <label for="author">작가 : </label><br>
+          <input type="text" name="author" id="author" required>
+        </div>
+        <div>
+          <label for="publisher">출판사 : </label><br>
+          <input type="text" name="publisher" id="publisher" required>
+        </div>
+        <div>
+            <label for="isbn">도서고유번호(ISBN) : </label><br>
+            <input type="text" name="isbn" id="isbn" required>
+        </div>
+        <div>
+          <input type="submit" value="입력">
+        </div>
+    </form>
+</body>

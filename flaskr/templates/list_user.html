@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    <title>사용자 목록</title>
+</head>
+<body>
+    <form action="/users" method="post">
+        <div>
+            <label for="name">이름 : </label>
+            <input type="text" name="username" id="username" required>
+            <input type="submit" value="입력">
+        </div>
+    </form>
+    
+    <form action="/deleteuser" method="post">
+        <ol>
+            {% for user in users %}
+                <li><input type="checkbox" id="delete" name="id" value="{{ user.id }}" /> <span>{{ user.username }}   ({{ user.phone }}) </span></li>
+            {% endfor %}
+        </ol>
+
+        <a href="/adduser">
+            <input type="button" value="사용자 추가" />
+        </a>
+        &nbsp;
+
+        <input type="submit" value="사용자 삭제" /><br><br>
+
+        <a href="/">
+            <input type="button" value="도서 관리" />
+        </a>
+        &nbsp;
+
+        <a href="/users">
+            <input type="button" value="대출 관리" />
+        </a>
+
+        
+    </form>
+
+</body>
